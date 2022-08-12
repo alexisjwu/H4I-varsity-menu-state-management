@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MenuItem from './MenuItem'
 import Receipt from './Receipt'
 
@@ -42,6 +42,19 @@ const menuItems = [
 ]
 
 function Menu() {
+  // parent of MenuItem and Receipt (which need to share a state)
+  const [purchasedItems, setPurchasedItems] = useState([]);
+
+  // takes in a purchasedItem (MenuItem) with a name and a price
+  const addPurchasedItem = (purchasedItem) => {
+    setPurchasedItems([...purchasedItems, purchasedItem]);    // used spread operator
+  }
+
+  const removePurchasedItem = (purchasedItemName) => {
+    // filter function on purchasedItems
+    setPurchasedItems(purchasedItems.filter(item => item.name !== purchasedItemName));
+  }
+
   return (
     <section>
       <dl>
@@ -51,11 +64,14 @@ function Menu() {
               name={menuItem.name}
               price={menuItem.price}
               picture={menuItem.picture}
+              addPurchasedItem={addPurchasedItem} 
+              removePurchasedItem={removePurchasedItem} 
+              // passes this function as a prop (not actually calling)
             />
           )
         })}
       </dl>
-      <Receipt purchasedItems={[]} />
+      <Receipt purchasedItems={purchasedItems} />
     </section>
   )
 }

@@ -1,8 +1,10 @@
 import React from 'react'
 
 const Receipt = props => {
-  const [showing, setShowing] = React.useState(false)
-  const toggleShowing = () => setShowing(!showing)
+  const [showing, setShowing] = React.useState(false) // state variable (toggles receipt on and off)
+  const toggleShowing = () => setShowing(!showing)    // toggles the setShowing on/off
+
+  // dl is a description list (includes dt, a title, and dd, a description)
   return (
     <>
       <button className="show-receipt" onClick={toggleShowing}>
